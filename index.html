@@ -461,9 +461,9 @@
             </div>
 
             <div class="flex justify-center gap-2">
-                <button onclick="showMateriTab('huruf')" class="materi-tab-btn bg-amber-400 text-white font-bold px-3.5 py-1.5 rounded-xl active-tab">🔤 Huruf</button>
-                <button onclick="showMateriTab('sukukata')" class="materi-tab-btn bg-gray-200 text-gray-700 font-bold px-3.5 py-1.5 rounded-xl">🧩 Suku Kata</button>
-                <button onclick="showMateriTab('angka')" class="materi-tab-btn bg-gray-200 text-gray-700 font-bold px-3.5 py-1.5 rounded-xl">🔢 Angka 1-20</button>
+                <button onclick="showMateriTab('huruf', event)" class="materi-tab-btn bg-amber-400 text-white font-bold px-3.5 py-1.5 rounded-xl active-tab">🔤 Huruf</button>
+                <button onclick="showMateriTab('sukukata', event)" class="materi-tab-btn bg-gray-200 text-gray-700 font-bold px-3.5 py-1.5 rounded-xl">🧩 Suku Kata</button>
+                <button onclick="showMateriTab('angka', event)" class="materi-tab-btn bg-gray-200 text-gray-700 font-bold px-3.5 py-1.5 rounded-xl">🔢 Angka 1-20</button>
             </div>
 
             <div id="materi-content" class="grid grid-cols-3 sm:grid-cols-5 gap-2 max-h-[320px] overflow-y-auto p-2"></div>
@@ -1440,17 +1440,25 @@
         function openMateriBelajar() {
             playSoundFx('click');
             showScreen('screen-materi');
-            showMateriTab('huruf');
+            showMateriTab('huruf', null);
         }
 
-        function showMateriTab(tab) {
+        function showMateriTab(tab, evt) {
             playSoundFx('click');
             document.querySelectorAll('.materi-tab-btn').forEach(b => {
                 b.classList.remove('bg-amber-400', 'text-white');
                 b.classList.add('bg-gray-200', 'text-gray-700');
             });
-            event.target.classList.remove('bg-gray-200', 'text-gray-700');
-            event.target.classList.add('bg-amber-400', 'text-white');
+            if (evt && evt.target) {
+                evt.target.classList.remove('bg-gray-200', 'text-gray-700');
+                evt.target.classList.add('bg-amber-400', 'text-white');
+            } else {
+                const defaultBtn = document.querySelector('.materi-tab-btn');
+                if (defaultBtn) {
+                    defaultBtn.classList.remove('bg-gray-200', 'text-gray-700');
+                    defaultBtn.classList.add('bg-amber-400', 'text-white');
+                }
+            }
 
             const container = document.getElementById('materi-content');
             container.innerHTML = '';
