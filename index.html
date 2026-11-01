@@ -632,7 +632,7 @@
                     const bassGain = ctx.createGain();
                     bassOsc.type = 'triangle';
                     bassOsc.frequency.setValueAtTime(freq / 2, now);
-                    bassGain.gain.setValueAtTime(0.06, now);
+                    bassGain.gain.setValueAtTime(0.10, now);
                     bassGain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
                     bassOsc.connect(bassGain);
                     bassGain.connect(ctx.destination);
